@@ -3567,6 +3567,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: MainCamera
       objectReference: {fileID: 0}
+    - target: {fileID: 6308638774505776367, guid: 93b2d235ea110074cb82d6d1dc88704d, type: 3}
+      propertyPath: m_UpdateMethod
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6308638772871377902, guid: 93b2d235ea110074cb82d6d1dc88704d, type: 3}
