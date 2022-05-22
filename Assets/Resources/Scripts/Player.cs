@@ -7,7 +7,7 @@ namespace Resources.Scripts
         private Camera _camera;
         private Vector2 _movement;
 
-        public float movementSpeed = 5F;
+        public float movementSpeed = 10F;
         public Rigidbody2D rb;
 
         // Start is called before the first frame update
