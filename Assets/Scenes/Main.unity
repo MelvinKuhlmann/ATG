@@ -3428,6 +3428,73 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &973447276
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 973447277}
+  - component: {fileID: 973447278}
+  m_Layer: 0
+  m_Name: ConfinerCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &973447277
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 973447276}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1650790639}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &973447278
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 973447276}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 34.85, y: -10.6, z: 1}
+  m_Center: {x: 20.32, y: -7.9, z: -18}
+--- !u!1 &1151425507 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6308638773469633571, guid: 93b2d235ea110074cb82d6d1dc88704d, type: 3}
+  m_PrefabInstance: {fileID: 1646305062}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1151425511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1151425507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2fba25a5cd15594e8f050a11e386c80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ConfineMode: 1
+  m_BoundingVolume: {fileID: 973447278}
+  m_BoundingShape2D: {fileID: 0}
+  m_ConfineScreenEdges: 1
+  m_Damping: 0
 --- !u!1001 &1646305062
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3484,9 +3551,29 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cameras
       objectReference: {fileID: 0}
+    - target: {fileID: 6308638774505776361, guid: 93b2d235ea110074cb82d6d1dc88704d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.8950005
+      objectReference: {fileID: 0}
+    - target: {fileID: 6308638774505776361, guid: 93b2d235ea110074cb82d6d1dc88704d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6308638774505776361, guid: 93b2d235ea110074cb82d6d1dc88704d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -18
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6308638772871377902, guid: 93b2d235ea110074cb82d6d1dc88704d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 973447277}
   m_SourcePrefab: {fileID: 100100000, guid: 93b2d235ea110074cb82d6d1dc88704d, type: 3}
+--- !u!4 &1650790639 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6308638772871377902, guid: 93b2d235ea110074cb82d6d1dc88704d, type: 3}
+  m_PrefabInstance: {fileID: 1646305062}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8847726146379787934
 PrefabInstance:
   m_ObjectHideFlags: 0
