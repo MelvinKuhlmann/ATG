@@ -5,7 +5,14 @@ namespace Resources.Scripts
 {
     public class DoorController : MonoBehaviour
     {
+        private DoorState _doorState;
         public GameObject interactKey;
+        public Animator animator;
+
+        private void Start()
+        {
+            _doorState = DoorState.Closed;
+        }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
@@ -27,8 +34,34 @@ namespace Resources.Scripts
         {
             if (Input.GetKeyDown(KeyCode.E) && interactKey.activeInHierarchy)
             {
-                Debug.Log("Interacted with door!");
+                ToggleDoor();
             }
         }
+
+        private void ToggleDoor()
+        {
+            Debug.Log(_doorState);
+            switch (_doorState)
+            {
+                case DoorState.Closed:
+                    animator.SetBool("open", true);
+                    animator.SetBool("close", false);
+                    _doorState = DoorState.Open;
+                    break;
+                case DoorState.Open:
+                    animator.SetBool("open", false);
+                    animator.SetBool("close", true);
+                    _doorState = DoorState.Closed;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+    }
+
+    public enum DoorState
+    {
+        Open,
+        Closed
     }
 }
