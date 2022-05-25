@@ -31,7 +31,7 @@ Transform:
   - {fileID: 132876311623510063}
   - {fileID: 42021985114453895}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &132876311623510062
 GameObject:
@@ -43,10 +43,10 @@ GameObject:
   m_Component:
   - component: {fileID: 132876311623510063}
   - component: {fileID: 132876311623510051}
-  - component: {fileID: 132876311623510050}
-  - component: {fileID: 132876311623510049}
   - component: {fileID: 132876311623510048}
   - component: {fileID: 1869800220}
+  - component: {fileID: 3813585201023221381}
+  - component: {fileID: 8009309543288662208}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -110,59 +110,17 @@ SpriteRenderer:
   m_SortingLayerID: 1935435709
   m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4bd46accd3c60e54f8fde784f49a2ff3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5f539a578f8b0864f9e53a76c9ff17f1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 0.125}
+  m_Size: {x: 2, y: 0.2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &132876311623510050
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 132876311623510062}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.5, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0.5}
-    oldSize: {x: 1, y: 0.125}
-    newSize: {x: 1, y: 0.125}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 0.125}
-  m_EdgeRadius: 0
---- !u!58 &132876311623510049
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 132876311623510062}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0.5, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
 --- !u!95 &132876311623510048
 Animator:
   serializedVersion: 4
@@ -197,6 +155,48 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactKey: {fileID: 42021985114453890}
   animator: {fileID: 132876311623510048}
+--- !u!58 &3813585201023221381
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 132876311623510062}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 1, y: 0}
+  serializedVersion: 2
+  m_Radius: 2
+--- !u!61 &8009309543288662208
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 132876311623510062}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 1, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0.5}
+    oldSize: {x: 2, y: 0.2}
+    newSize: {x: 2, y: 0.2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2, y: 0.2}
+  m_EdgeRadius: 0
 --- !u!1001 &132876312808142926
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -211,7 +211,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 93828511478763465, guid: fb002a1a752fecd43a42e108e7a30dd4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.512
+      value: 0.981
       objectReference: {fileID: 0}
     - target: {fileID: 93828511478763465, guid: fb002a1a752fecd43a42e108e7a30dd4, type: 3}
       propertyPath: m_LocalPosition.y
