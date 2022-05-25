@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1059636416}
   - component: {fileID: 1059636417}
   - component: {fileID: 6864337546963838074}
+  - component: {fileID: 4251314186994184428}
   m_Layer: 7
   m_Name: Weapon
   m_TagString: Untagged
@@ -100,6 +101,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bullet: {fileID: 7486911717559607715, guid: 056f575e47686524793ef901dace44b7, type: 3}
   firePoint: {fileID: 1273888696}
+--- !u!114 &4251314186994184428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1059636415}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_ComponentVersion: 1
+  m_HasRenderer: 1
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_ApplyToSortingLayers: 000000008d13fd833b356490f140356a5bb5d865bd675c73
+  m_ShapePath:
+  - {x: -0.5000001, y: -0.99999994, z: 0}
+  - {x: -0.5000001, y: 0.9999999, z: 0}
+  - {x: 0.5000001, y: 0.9999999, z: 0}
+  - {x: 0.5000001, y: -0.99999994, z: 0}
+  m_ShapePathHash: 0
+  m_Mesh: {fileID: 0}
+  m_InstanceId: -215690
 --- !u!1 &1273888695
 GameObject:
   m_ObjectHideFlags: 0
@@ -356,4 +384,4 @@ MonoBehaviour:
   - {x: -0.30990884, y: -0.8027505, z: 0}
   m_ShapePathHash: 729550660
   m_Mesh: {fileID: 0}
-  m_InstanceId: 42454
+  m_InstanceId: 48774
