@@ -12,6 +12,7 @@ namespace Resources.Scripts
         public GameObject interactKey;
         public Animator animator;
         public Light2D indicatorLight;
+        public bool permanentPower;
 
         private void Start()
         {
@@ -37,13 +38,16 @@ namespace Resources.Scripts
 
         private void Update()
         {
+            if (!permanentPower)
+            {
+                UpdatePower();
+                CheckPowerLevel();
+            }
+            
             if (Input.GetKeyDown(KeyCode.E) && interactKey.activeInHierarchy && !DoorPowerLevel.Depleted.Equals(_doorPowerLevel))
             {
                 ToggleDoor();
             }
-
-            UpdatePower();
-            CheckPowerLevel();
         }
 
         private void UpdatePower()
