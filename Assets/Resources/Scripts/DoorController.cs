@@ -17,6 +17,7 @@ namespace Resources.Scripts
         private void Start()
         {
             _doorState = DoorState.Closed;
+            _doorPowerLevel = DoorPowerLevel.Full;
             _power = 100F;
         }
 
