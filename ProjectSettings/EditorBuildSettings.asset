@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Main.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/Duplicate Of Main.unity
-    guid: cbb9df323d6703e44bbf9675b3655cb1
+    path: Assets/Scenes/Duplicate of Main.unity
+    guid: 1533b0a678fbc294ab1349772bd8cef4
   m_configObjects: {}
