@@ -10,7 +10,7 @@ namespace Resources.Scripts
 
         // The first item in the list, on index 0, wont go off on purpose. Only events starting from the 1st 
         // second will go off. Else we will have timing issues.
-        public List<UnityEvent> events = new();
+        public List<UnityEvent> eventsPerSecond = new();
 
         private void Start()
         {
@@ -21,12 +21,12 @@ namespace Resources.Scripts
         {
             _timer = Mathf.RoundToInt(Time.fixedTime);
 
-            if (_timer > events.Count - 1)
+            if (_timer > eventsPerSecond.Count - 1)
             {
                 return;
             }
 
-            events[_timer].Invoke();
+            eventsPerSecond[_timer].Invoke();
         }
     }
 }
