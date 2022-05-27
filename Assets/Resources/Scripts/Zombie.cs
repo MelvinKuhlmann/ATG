@@ -14,7 +14,7 @@ namespace Resources.Scripts
             _playerTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         }
 
-        private void LateUpdate()
+        private void Update()
         {
             var ownPosition = transform.position;
             var playerPosition = _playerTransform.position;
@@ -28,7 +28,6 @@ namespace Resources.Scripts
             // Apply the rotation -90F because the sprite is not facing right by default
             transform.rotation = Quaternion.Euler(0F, 0F, angle - 90F);
 
-            // This causes lag/crashes of the game, not sure why yet.
             transform.position =
                 Vector2.MoveTowards(ownPosition, playerPosition, Speed * Time.deltaTime);
         }
