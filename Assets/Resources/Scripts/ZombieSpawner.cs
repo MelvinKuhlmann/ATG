@@ -1,17 +1,19 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using Random = UnityEngine.Random;
 
 namespace Resources.Scripts
 {
     public class ZombieSpawner : MonoBehaviour
     {
+        public UnityEvent zombieSpawn;
+        
+        private bool _canSpawn;
         public GameObject zombie;
         public List<float> spawnTimes = new();
-        private bool _canSpawn;
-
+        
         // Start is called before the first frame update
         private void Start()
         {
@@ -28,6 +30,8 @@ namespace Resources.Scripts
         {
             if (_canSpawn)
             {
+                zombieSpawn.Invoke();
+                
                 _canSpawn = false;
                 
                 StartCoroutine(SpawnCooldown());
