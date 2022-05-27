@@ -21,7 +21,7 @@ namespace Resources.Scripts
         private void FixedUpdate()
         {
             var time = Time.fixedTime;
-            if (spawnTimes.Contains(Mathf.Round(time))) Spawn(5);
+            if (spawnTimes.Contains(Mathf.Round(time))) Spawn(10);
         }
 
         private void Spawn(int amount)
