@@ -4,22 +4,18 @@ using UnityEngine.Rendering.Universal;
 
 namespace Resources.Scripts
 {
-    public class DoorController : MonoBehaviour
+    public class DoorController : Obstacle
     {
         private DoorState _doorState;
         private DoorPowerLevel _doorPowerLevel;
         private float _power;
+
         public GameObject interactKey;
         public Animator animator;
         public Light2D indicatorLight;
         public bool permanentPower;
+        public Transform healthbar;
 
-        private void Start()
-        {
-            _doorState = DoorState.Closed;
-            _doorPowerLevel = DoorPowerLevel.Full;
-            _power = 100F;
-        }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
@@ -37,25 +33,11 @@ namespace Resources.Scripts
             }
         }
 
-        private void Update()
-        {
-            if (!permanentPower)
-            {
-                UpdatePower();
-                CheckPowerLevel();
-            }
-            
-            if (Input.GetKeyDown(KeyCode.E) && interactKey.activeInHierarchy && !DoorPowerLevel.Depleted.Equals(_doorPowerLevel))
-            {
-                ToggleDoor();
-            }
-        }
-
         private void UpdatePower()
         {
             _power -= Time.deltaTime;
             if (_power < 0) _power = 0;
-            
+
             _doorPowerLevel = _power switch
             {
                 <= 60 and > 30 => DoorPowerLevel.Medium,
@@ -63,7 +45,7 @@ namespace Resources.Scripts
                 _ => DoorPowerLevel.Full
             };
         }
-        
+
         private void CheckPowerLevel()
         {
             indicatorLight.color = _doorPowerLevel switch
@@ -94,6 +76,38 @@ namespace Resources.Scripts
                     throw new ArgumentOutOfRangeException();
             }
         }
+
+        protected override void ChildStart()
+        {
+            _doorState = DoorState.Closed;
+            _doorPowerLevel = DoorPowerLevel.Full;
+            _power = 100F;
+        }
+
+        protected override void ChildUpdate()
+        {
+            if (!permanentPower)
+            {
+                UpdatePower();
+                CheckPowerLevel();
+            }
+
+            if (Input.GetKeyDown(KeyCode.E) && interactKey.activeInHierarchy &&
+                !DoorPowerLevel.Depleted.Equals(_doorPowerLevel))
+            {
+                ToggleDoor();
+            }
+        }
+
+        protected override int InitializeDurability()
+        {
+            return 100;
+        }
+
+        protected override Transform GetHealthBar()
+        {
+            return healthbar;
+        }
     }
 
     public enum DoorState
@@ -101,7 +115,7 @@ namespace Resources.Scripts
         Open,
         Closed
     }
-    
+
     public enum DoorPowerLevel
     {
         Depleted,

@@ -12,6 +12,7 @@ namespace Resources.Scripts
         // second will go off. Else we will have timing issues.
         public List<UnityEvent> eventsPerSecond = new();
 
+        // Start is called before the first frame update
         private void Start()
         {
             InvokeRepeating("TriggerEvent", 1F, 1F);

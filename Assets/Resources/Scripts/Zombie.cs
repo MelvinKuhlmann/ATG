@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using UnityEditor.Rendering;
 using UnityEngine;
 
 namespace Resources.Scripts
@@ -10,7 +8,9 @@ namespace Resources.Scripts
         private Transform _playerTransform;
         private const float Speed = 2F;
         private ZombieState _zombieState;
+        
         public Animator animator;
+        public LayerMask ignoredLayer;
 
         // Start is called before the first frame update
         private void Start()
@@ -18,37 +18,54 @@ namespace Resources.Scripts
             _playerTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
             _zombieState = ZombieState.Walking;
         }
+        
+        // Update is called once per frame
+        private void Update()
+        {
+            HandleState();
+        }
 
         private void FixedUpdate()
         {
+            if (_zombieState == ZombieState.Dying) return;
+            
+            var hit = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.up), 2F, ~ignoredLayer);
+            if (hit.collider != null)
+            {
+                switch (hit.collider.tag)
+                {
+                    case "Player":
+                        _zombieState = ZombieState.AttackingPlayer;
+                        MoveToPosition(_playerTransform.position);
+                        break;
+                    case "Door":
+                    case "Wall": 
+                        _zombieState = ZombieState.DestroyingObstacle;
+                        MoveToPosition(hit.collider.transform.position);
+                        break;
+                }
+            }
+            else
+            {
+                MoveToPosition(_playerTransform.position);
+            }
+        }
+
+        private void MoveToPosition(Vector3 targetPosition)
+        {
             var ownPosition = transform.position;
-            var playerPosition = _playerTransform.position;
 
             // Get the vector difference between the two positions
-            var offset = new Vector2(playerPosition.x - ownPosition.x, playerPosition.y - ownPosition.y);
-        
+            var offset = new Vector2(targetPosition.x - ownPosition.x, targetPosition.y - ownPosition.y);
+
             // Determine the angle
             var angle = Mathf.Atan2(offset.y, offset.x) * Mathf.Rad2Deg;
-        
+
             // Apply the rotation -90F because the sprite is not facing right by default
             transform.rotation = Quaternion.Euler(0F, 0F, angle - 90F);
 
             transform.position =
-                Vector2.MoveTowards(ownPosition, playerPosition, Speed * Time.deltaTime);
-
-            if (Vector2.Distance(ownPosition, playerPosition) <= 2F)
-            {
-                _zombieState = ZombieState.Attacking;
-            }
-            else
-            {
-                _zombieState = ZombieState.Walking;
-            }
-        }
-
-        private void Update()
-        {
-            HandleState();
+                Vector2.MoveTowards(ownPosition, targetPosition, Speed * Time.deltaTime);
         }
 
         private void OnCollisionEnter2D(Collision2D col)
@@ -66,7 +83,8 @@ namespace Resources.Scripts
                 case ZombieState.Walking:
                     ChangeAnimationTo("isWalking");
                     break;
-                case ZombieState.Attacking:
+                case ZombieState.AttackingPlayer:
+                case ZombieState.DestroyingObstacle:
                     ChangeAnimationTo("isAttacking");
                     break;
                 case ZombieState.Dying:
@@ -80,7 +98,8 @@ namespace Resources.Scripts
         private enum ZombieState
         {
             Walking,
-            Attacking,
+            AttackingPlayer,
+            DestroyingObstacle,
             Dying
         }
 

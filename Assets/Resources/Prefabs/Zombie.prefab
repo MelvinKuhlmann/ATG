@@ -58,7 +58,7 @@ MonoBehaviour:
   - {x: 0.39139345, y: -0.04510371, z: 0}
   m_ShapePathHash: 2083410429
   m_Mesh: {fileID: 0}
-  m_InstanceId: 43712
+  m_InstanceId: 62822
 --- !u!1 &1314765787
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,7 +181,7 @@ MonoBehaviour:
   - {x: 0.44234678, y: -0.08367477, z: 0}
   m_ShapePathHash: 868938566
   m_Mesh: {fileID: 0}
-  m_InstanceId: 43710
+  m_InstanceId: 62820
 --- !u!1 &1938902816
 GameObject:
   m_ObjectHideFlags: 0
@@ -233,7 +233,7 @@ GameObject:
   - component: {fileID: 1599981984}
   m_Layer: 8
   m_Name: Zombie
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -343,7 +343,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 5
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -439,6 +439,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 430661318519499910}
+  ignoredLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &1599981984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -476,4 +479,4 @@ MonoBehaviour:
   - {x: 0.34414673, y: -0.4968834, z: 0}
   m_ShapePathHash: -651966457
   m_Mesh: {fileID: 0}
-  m_InstanceId: 43714
+  m_InstanceId: 62824

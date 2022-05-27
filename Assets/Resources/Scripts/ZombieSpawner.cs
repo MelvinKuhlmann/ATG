@@ -13,6 +13,7 @@ namespace Resources.Scripts
         private bool _canSpawn;
         public GameObject zombie;
         
+        // Start is called before the first frame update
         private void Start()
         {
             _canSpawn = true;
