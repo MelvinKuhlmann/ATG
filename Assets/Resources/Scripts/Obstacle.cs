@@ -54,7 +54,7 @@ namespace Resources.Scripts
 
         private IEnumerator RemoveMonsterFromList(int monsterHashcode)
         {
-            yield return new WaitForSeconds(1.5F);
+            yield return new WaitForSeconds(1F);
             _monstersAttackingThisObject.Remove(monsterHashcode);
         }
 
