@@ -26,11 +26,10 @@ namespace Resources.Scripts
                 {
                     _timer = 30F;
                     _alarmState = AlarmState.Off;
+                    animator.SetBool("isOn", false);
                 };
             }
             
-            animator.SetBool("isOn", AlarmState.On.Equals(_alarmState));
-
             // For debug purposes
             if (Input.GetKeyDown(KeyCode.Q))
             {
@@ -41,6 +40,7 @@ namespace Resources.Scripts
         public void TriggerAlarm()
         {
             _alarmState = AlarmState.On;
+            animator.SetBool("isOn", true);
         }
 
         private enum AlarmState

@@ -12,21 +12,13 @@ namespace Resources.Scripts
         
         private bool _canSpawn;
         public GameObject zombie;
-        public List<float> spawnTimes = new();
         
-        // Start is called before the first frame update
         private void Start()
         {
             _canSpawn = true;
         }
 
-        private void FixedUpdate()
-        {
-            var time = Time.fixedTime;
-            if (spawnTimes.Contains(Mathf.Round(time))) Spawn(10);
-        }
-
-        private void Spawn(int amount)
+        public void Spawn(int amount)
         {
             if (_canSpawn)
             {
@@ -44,6 +36,8 @@ namespace Resources.Scripts
                     
                     Instantiate(zombie, exactSpawnLocation, transform.rotation);
                 }
+                
+                Debug.Log($"{amount} zombies spawned.");
             }
         }
 
