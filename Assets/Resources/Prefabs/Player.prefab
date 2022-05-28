@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1059636416}
   - component: {fileID: 1059636417}
-  - component: {fileID: 6864337546963838074}
   - component: {fileID: 4251314186994184428}
   m_Layer: 7
   m_Name: Weapon
@@ -87,20 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6864337546963838074
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1059636415}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 299454576bacebc47bc27825dfb995a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bullet: {fileID: 7486911717559607715, guid: 056f575e47686524793ef901dace44b7, type: 3}
-  firePoint: {fileID: 1273888696}
 --- !u!114 &4251314186994184428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,7 +112,7 @@ MonoBehaviour:
   - {x: 0.5000001, y: -0.99999994, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -14850
+  m_InstanceId: -1492
 --- !u!1 &1273888695
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,6 +190,7 @@ GameObject:
   - component: {fileID: 8847726146379787936}
   - component: {fileID: 8847726146379787941}
   - component: {fileID: 4824187070556009908}
+  - component: {fileID: 2486434341930933355}
   m_Layer: 7
   m_Name: Player
   m_TagString: Player
@@ -227,7 +213,7 @@ Transform:
   - {fileID: 5892227986810284060}
   - {fileID: 1059636416}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8847726147358054093
 SpriteRenderer:
@@ -384,4 +370,33 @@ MonoBehaviour:
   - {x: -0.30990884, y: -0.8027505, z: 0}
   m_ShapePathHash: 729550660
   m_Mesh: {fileID: 0}
-  m_InstanceId: -14836
+  m_InstanceId: -1478
+--- !u!114 &2486434341930933355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8847726147358054092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 299454576bacebc47bc27825dfb995a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bullet: {fileID: 7486911717559607715, guid: 056f575e47686524793ef901dace44b7, type: 3}
+  firePoint: {fileID: 1273888696}
+  updateAmmo:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: Resources.Scripts.HudAmmoController, Assembly-CSharp
+        m_MethodName: SetAmount
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
