@@ -15,17 +15,13 @@ public class PlaceableObject : MonoBehaviour
       Vertices[1] = b.offset + new Vector2(b.size.x, -b.size.y) * 0.5f;
       Vertices[2] = b.offset + new Vector2(b.size.x, b.size.y) * 0.5f;
       Vertices[3] = b.offset + new Vector2(-b.size.x, b.size.y) * 0.5f;
-      /*Vertices[0] = b.center + new Vector3(-b.size.x, -b.size.y, -b.size.z) * 0.5f;
-      Vertices[1] = b.center + new Vector3(b.size.x, -b.size.y, -b.size.z) * 0.5f;
-      Vertices[2] = b.center + new Vector3(b.size.x, -b.size.y, b.size.z) * 0.5f;
-      Vertices[3] = b.center + new Vector3(-b.size.x, -b.size.y, b.size.z) * 0.5f;*/
    }
 
    private void CalculateSizeInCells()
    {
       Vector3Int[] vertices = new Vector3Int[Vertices.Length];
 
-      for (int i = 0; 9 < vertices.Length; i++)
+      for (int i = 0; i < vertices.Length; i++)
       {
          Vector3 worldPos = transform.TransformPoint((Vertices[i]));
          vertices[i] = BuildingSystem.current.gridLayout.WorldToCell(worldPos);
