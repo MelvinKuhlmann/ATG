@@ -17,7 +17,7 @@ namespace Resources.Scripts
         private void Start()
         {
             _playerTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-            _zombieState = ZombieState.Walking;
+            _zombieState = ZombieState.Running;
         }
         
         // Update is called once per frame
@@ -36,12 +36,9 @@ namespace Resources.Scripts
                 switch (hit.collider.tag)
                 {
                     case "Player":
-                        _zombieState = ZombieState.AttackingPlayer;
-                        MoveToPosition(_playerTransform.position);
-                        break;
                     case "Door":
                     case "Wall": 
-                        _zombieState = ZombieState.DestroyingObstacle;
+                        _zombieState = ZombieState.Attacking;
                         MoveToPosition(hit.collider.transform.position);
                         break;
                 }
@@ -81,11 +78,10 @@ namespace Resources.Scripts
         {
             switch (_zombieState)
             {
-                case ZombieState.Walking:
+                case ZombieState.Running:
                     ChangeAnimationTo(animator, "isRunning");
                     break;
-                case ZombieState.AttackingPlayer:
-                case ZombieState.DestroyingObstacle:
+                case ZombieState.Attacking:
                     ChangeAnimationTo(animator, "isAttacking");
                     break;
                 case ZombieState.Dying:
@@ -98,9 +94,8 @@ namespace Resources.Scripts
 
         private enum ZombieState
         {
-            Walking,
-            AttackingPlayer,
-            DestroyingObstacle,
+            Running,
+            Attacking,
             Dying
         }
     }
