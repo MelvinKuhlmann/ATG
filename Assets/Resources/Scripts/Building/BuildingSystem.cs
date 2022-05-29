@@ -4,6 +4,7 @@ using UnityEngine.Tilemaps;
 public class BuildingSystem : MonoBehaviour
 {
     public static BuildingSystem current;
+    private static Camera mainCamera;
 
     public GridLayout gridLayout;
     private Grid grid;
@@ -21,6 +22,7 @@ public class BuildingSystem : MonoBehaviour
     {
         current = this;
         grid = gridLayout.gameObject.GetComponent<Grid>();
+        mainCamera = Camera.main;
     }
 
     private void Update()
@@ -63,51 +65,13 @@ public class BuildingSystem : MonoBehaviour
     
     #region Utils
 
+    
     public static Vector3 GetMouseWorldPosition()
     {
-        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-
-        if(hit.collider != null)
-        {
-            /*Debug.Log ("Target Position: " + hit.collider.gameObject.transform.position);
-            Debug.Log ("Target Position: " + hit.point);*/
-            return hit.point;
-        }
-        
-        
-        /*Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-
-        if(Physics.Raycast(ray,out hit))
-        {
-            Debug.Log ("Target Position: " + hit.collider.gameObject.transform.position);
-            Debug.Log ("Target Position: " + hit.point);
-            return hit.point;
-        }*/
-        
-        
-        //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //Ray ray = FindObjectOfType<Camera>().ScreenPointToRay(Input.mousePosition);
-        /* if (Physics.Raycast(ray, out RaycastHit raycastHit))
-         {
-             return raycastHit.point;
-         }
-         else
-         {
-             return Vector3.zero;
-         }*/
-       // RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-       
-        /*if (hit.collider != null)
-        {
-            return hit.point;
-        }
-        else
-        {*/
-            return Vector3.zero;
-        //}
+        // Multiply with -1 otherwise the values of x and y are inverted
+        return mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.z)) * -1;
     }
-
+    
     public Vector3 SnapCoordinateToGrid(Vector3 position)
     {
         Vector3Int cellPos = gridLayout.WorldToCell(position);
@@ -164,7 +128,6 @@ public class BuildingSystem : MonoBehaviour
     public void TakeArea(Vector3Int start, Vector3Int size)
     {
         MainTilemap.BoxFill(start, whiteTile, start.x, start.y, start.x + size.x, start.y + size.y);
-        
     }
     
     #endregion
