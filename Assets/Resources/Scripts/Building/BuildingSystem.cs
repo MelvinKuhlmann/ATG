@@ -85,7 +85,7 @@ public class BuildingSystem : MonoBehaviour
     {
         Vector3Int cellPos = gridLayout.WorldToCell(position);
         position = grid.GetCellCenterWorld(cellPos);
-        return position;
+        return new Vector3(position.x, position.y, 0f);
     }
 
     private static TileBase[] GetTilesBlock(BoundsInt area, Tilemap tilemap)
