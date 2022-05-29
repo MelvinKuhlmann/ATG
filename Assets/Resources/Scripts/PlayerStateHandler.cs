@@ -1,12 +1,20 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Resources.Scripts
 {
     public class PlayerStateHandler : MonoBehaviour
     {
-        public PlayerState _playerState;
-
+        private PlayerState _playerState;
+        public Animator animator;
         public Player player;
+        
+        
+        // Start is called before the first frame update
+        private void Start()
+        {
+            _playerState = PlayerState.Idle;
+        }
         
         private void Update()
         {
@@ -20,11 +28,32 @@ namespace Resources.Scripts
             {
                 _playerState = PlayerState.Idle;
             }
-        }
 
-        public PlayerState GetPlayerState()
+            HandleAnimation();
+        }
+        
+        private enum PlayerState
         {
-            return _playerState;
+            Idle,
+            Moving,
+            Attacking,
+            Dead
+        }
+        
+        private void HandleAnimation()
+        {
+            switch (_playerState)
+            {
+                case PlayerState.Idle:
+                    AnimatorUtil.ChangeAnimationTo(animator, "isIdle");
+                    break;
+                case PlayerState.Moving:
+                case PlayerState.Attacking:
+                case PlayerState.Dead:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }

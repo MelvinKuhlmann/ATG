@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using static AnimatorUtil;
 
 namespace Resources.Scripts
 {
@@ -81,14 +82,14 @@ namespace Resources.Scripts
             switch (_zombieState)
             {
                 case ZombieState.Walking:
-                    ChangeAnimationTo("isWalking");
+                    ChangeAnimationTo(animator, "isWalking");
                     break;
                 case ZombieState.AttackingPlayer:
                 case ZombieState.DestroyingObstacle:
-                    ChangeAnimationTo("isAttacking");
+                    ChangeAnimationTo(animator, "isAttacking");
                     break;
                 case ZombieState.Dying:
-                    ChangeAnimationTo("isDying");
+                    ChangeAnimationTo(animator,"isDying");
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -101,11 +102,6 @@ namespace Resources.Scripts
             AttackingPlayer,
             DestroyingObstacle,
             Dying
-        }
-
-        protected override Animator getAnimator()
-        {
-            return animator;
         }
     }
 }
