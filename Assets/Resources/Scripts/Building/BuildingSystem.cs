@@ -65,20 +65,47 @@ public class BuildingSystem : MonoBehaviour
 
     public static Vector3 GetMouseWorldPosition()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //Ray ray = FindObjectOfType<Camera>().ScreenPointToRay(Input.mousePosition);
-        Debug.Log(ray);
-        Debug.DrawRay(ray.origin, ray.direction * 10, Color.yellow);
-        if (Physics.Raycast(ray, out RaycastHit raycastHit))
+        RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+
+        if(hit.collider != null)
         {
-            Debug.Log("hoi");
-            return raycastHit.point;
+            /*Debug.Log ("Target Position: " + hit.collider.gameObject.transform.position);
+            Debug.Log ("Target Position: " + hit.point);*/
+            return hit.point;
+        }
+        
+        
+        /*Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if(Physics.Raycast(ray,out hit))
+        {
+            Debug.Log ("Target Position: " + hit.collider.gameObject.transform.position);
+            Debug.Log ("Target Position: " + hit.point);
+            return hit.point;
+        }*/
+        
+        
+        //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //Ray ray = FindObjectOfType<Camera>().ScreenPointToRay(Input.mousePosition);
+        /* if (Physics.Raycast(ray, out RaycastHit raycastHit))
+         {
+             return raycastHit.point;
+         }
+         else
+         {
+             return Vector3.zero;
+         }*/
+       // RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+       
+        /*if (hit.collider != null)
+        {
+            return hit.point;
         }
         else
-        {
-            Debug.Log("niets gevonden");
+        {*/
             return Vector3.zero;
-        }
+        //}
     }
 
     public Vector3 SnapCoordinateToGrid(Vector3 position)
