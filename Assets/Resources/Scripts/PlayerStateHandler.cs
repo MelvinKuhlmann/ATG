@@ -48,6 +48,8 @@ namespace Resources.Scripts
                     AnimatorUtil.ChangeAnimationTo(animator, "isIdle");
                     break;
                 case PlayerState.Moving:
+                    AnimatorUtil.ChangeAnimationTo(animator, "isRunning");
+                    break;
                 case PlayerState.Attacking:
                 case PlayerState.Dead:
                     break;

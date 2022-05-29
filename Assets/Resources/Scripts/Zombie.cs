@@ -62,8 +62,8 @@ namespace Resources.Scripts
             // Determine the angle
             var angle = Mathf.Atan2(offset.y, offset.x) * Mathf.Rad2Deg;
 
-            // Apply the rotation -90F because the sprite is not facing right by default
-            transform.rotation = Quaternion.Euler(0F, 0F, angle - 90F);
+            // Apply the rotation
+            transform.rotation = Quaternion.Euler(0F, 0F, angle);
 
             transform.position =
                 Vector2.MoveTowards(ownPosition, targetPosition, Speed * Time.deltaTime);
@@ -82,7 +82,7 @@ namespace Resources.Scripts
             switch (_zombieState)
             {
                 case ZombieState.Walking:
-                    ChangeAnimationTo(animator, "isWalking");
+                    ChangeAnimationTo(animator, "isRunning");
                     break;
                 case ZombieState.AttackingPlayer:
                 case ZombieState.DestroyingObstacle:
