@@ -49,6 +49,7 @@ namespace Resources.Scripts
 
         private void TakeDamage()
         {
+            Debug.Log($"{gameObject.name} took damage");
             _durability -= 10;
         }
 
@@ -61,6 +62,5 @@ namespace Resources.Scripts
         protected abstract void ChildStart();
         protected abstract void ChildUpdate();
         protected abstract int InitializeDurability();
-        protected abstract Transform GetHealthBar();
     }
 }

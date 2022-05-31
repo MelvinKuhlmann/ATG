@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Monster
+  - Bullet
+  - Wall
+  - Door
   layers:
   - Default
   - TransparentFX
@@ -52,6 +56,9 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 1708701019
+    locked: 0
+  - name: Monster
+    uniqueID: 204110785
     locked: 0
   - name: Objects
     uniqueID: 1935435709

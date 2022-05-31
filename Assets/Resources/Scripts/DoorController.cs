@@ -14,8 +14,6 @@ namespace Resources.Scripts
         public Animator animator;
         public Light2D indicatorLight;
         public bool permanentPower;
-        public Transform healthbar;
-
 
         private void OnTriggerEnter2D(Collider2D other)
         {
@@ -102,11 +100,6 @@ namespace Resources.Scripts
         protected override int InitializeDurability()
         {
             return 100;
-        }
-
-        protected override Transform GetHealthBar()
-        {
-            return healthbar;
         }
     }
 

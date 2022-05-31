@@ -6,18 +6,19 @@ namespace Resources.Scripts
 {
     public class Zombie : Monster
     {
-        private Transform _playerTransform;
+        private GameObject _player;
+        private Transform _target;
         private const float Speed = 2F;
         private ZombieState _zombieState;
         
         public Animator animator;
-        public LayerMask ignoredLayer;
 
         // Start is called before the first frame update
         private void Start()
         {
-            _playerTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-            _zombieState = ZombieState.Running;
+            _player = GameObject.FindGameObjectWithTag("Player");
+            
+            ChasePlayer();
         }
         
         // Update is called once per frame
@@ -26,32 +27,12 @@ namespace Resources.Scripts
             HandleState();
         }
 
-        private void FixedUpdate()
+        private void MoveToTarget()
         {
-            if (_zombieState == ZombieState.Dying) return;
+            if (_target == null) _target = _player.transform;
             
-            var hit = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.up), 2F, ~ignoredLayer);
-            if (hit.collider != null)
-            {
-                switch (hit.collider.tag)
-                {
-                    case "Player":
-                    case "Door":
-                    case "Wall": 
-                        _zombieState = ZombieState.Attacking;
-                        MoveToPosition(hit.collider.transform.position);
-                        break;
-                }
-            }
-            else
-            {
-                MoveToPosition(_playerTransform.position);
-            }
-        }
-
-        private void MoveToPosition(Vector3 targetPosition)
-        {
             var ownPosition = transform.position;
+            var targetPosition = _target.transform.position;
 
             // Get the vector difference between the two positions
             var offset = new Vector2(targetPosition.x - ownPosition.x, targetPosition.y - ownPosition.y);
@@ -64,6 +45,27 @@ namespace Resources.Scripts
 
             transform.position =
                 Vector2.MoveTowards(ownPosition, targetPosition, Speed * Time.deltaTime);
+        }
+
+        private void OnTriggerEnter2D(Collider2D col)
+        {
+            if (_zombieState == ZombieState.Attacking) return;
+            switch (col.tag)
+            {
+                case "Player":
+                case "Door":
+                case "Wall":
+                    _target = col.transform;
+                    _zombieState = ZombieState.Attacking;
+                    break;
+            }
+        }
+
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            if (_zombieState == ZombieState.Dying) return;
+
+            _zombieState = ZombieState.Running;
         }
 
         private void OnCollisionEnter2D(Collision2D col)
@@ -80,9 +82,18 @@ namespace Resources.Scripts
             {
                 case ZombieState.Running:
                     ChangeAnimationTo(animator, "isRunning");
+                    MoveToTarget();
                     break;
                 case ZombieState.Attacking:
-                    ChangeAnimationTo(animator, "isAttacking");
+                    if (_target == null)
+                    {
+                        ChasePlayer();
+                    }
+                    else
+                    {
+                        ChangeAnimationTo(animator, "isAttacking");
+                        MoveToTarget();   
+                    }
                     break;
                 case ZombieState.Dying:
                     ChangeAnimationTo(animator,"isDying");
@@ -90,6 +101,12 @@ namespace Resources.Scripts
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        private void ChasePlayer()
+        {
+            _target = _player.transform;
+            _zombieState = ZombieState.Running;
         }
 
         private enum ZombieState
