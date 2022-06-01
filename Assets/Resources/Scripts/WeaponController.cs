@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using static Resources.Scripts.Utility.AudioUtil;
 
 namespace Resources.Scripts
 {
@@ -12,6 +13,7 @@ namespace Resources.Scripts
         public GameObject muzzleFlash;
         public UnityEvent<int> updateAmmo = new();
         public AudioClip gunShotClip;
+        public AudioClip noAmmoClip;
 
         // Start is called before the first frame update
         private void Start()
@@ -19,29 +21,35 @@ namespace Resources.Scripts
             _amountOfAmmo = 10;
             updateAmmo.Invoke(_amountOfAmmo);
             
-            InvokeRepeating("GarbageCollectAudioSources", 0F, 5F);
+            InvokeRepeating("GarbageCollectAudioSources", 0F, 3F);
         }
         
         // Update is called once per frame
         private void Update()
         {
-            if (Input.GetMouseButtonDown(0) && _amountOfAmmo >= 1)
+            if (Input.GetMouseButtonDown(0))
             {
-                PlayGunShot();
+                if (_amountOfAmmo >= 1)
+                {
+                    PlayClip(gameObject, gunShotClip);
                 
-                muzzleFlash.SetActive(true);
-                Invoke("HideFlash", 0.1F);
-                Instantiate(bullet, firePoint.position, transform.rotation);
-                _amountOfAmmo -= 1;
-                updateAmmo.Invoke(_amountOfAmmo);
+                    muzzleFlash.SetActive(true);
+                    Invoke("HideFlash", 0.1F);
+                    Instantiate(bullet, firePoint.position, transform.rotation);
+                    _amountOfAmmo -= 1;
+                    updateAmmo.Invoke(_amountOfAmmo);
+                }
+                else
+                {
+                    PlayClip(gameObject, noAmmoClip);
+                }
+
             }
         }
 
         private void PlayGunShot()
         {
-            var audioSource = gameObject.AddComponent<AudioSource>();
-            audioSource.clip = gunShotClip;
-            audioSource.Play();
+
         }
 
         private void HideFlash()
