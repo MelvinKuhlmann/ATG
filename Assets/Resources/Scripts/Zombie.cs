@@ -89,10 +89,10 @@ namespace Resources.Scripts
                     MoveToTarget();
                     break;
                 case ZombieState.Attacking:
-                    var targetGameObject = _colliders.Count == 0
+                    var targetGameObject = _colliders.Count == 0 || _colliders.Find(coll => coll.gameObject.CompareTag("Player"))
                         ? _player
                         : _colliders.Aggregate((i, j) =>
-                            i.GetComponent<StrategicValue>().GetValue() >= j.GetComponent<StrategicValue>().GetValue()
+                            i.GetComponent<Obstacle>().GetStrategicValue() >= j.GetComponent<Obstacle>().GetStrategicValue()
                                 ? i
                                 : j).gameObject;
                     

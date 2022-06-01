@@ -7,12 +7,16 @@ namespace Resources.Scripts
     public abstract class Obstacle : MonoBehaviour
     {
         private readonly HashSet<int> _monstersAttackingThisObject = new();
-        private int _durability;
         private Vector3 _localScale;
+        protected int Durability;
+        protected bool IsAttackable;
+        protected int StrategicValue;
 
         private void Start()
         {
-            _durability = InitializeDurability();
+            Durability = InitializeDurability();
+            StrategicValue = InitializeStrategicValue();
+            IsAttackable = true;
             ChildStart();
         }
 
@@ -20,7 +24,7 @@ namespace Resources.Scripts
         {
             ChildUpdate();
 
-            if (_durability <= 0)
+            if (Durability <= 0)
             {
                 if (transform.parent != null)
                 {
@@ -48,7 +52,17 @@ namespace Resources.Scripts
 
         private void TakeDamage()
         {
-            _durability -= 10;
+            Durability -= 10;
+        }
+
+        public bool CanAttack()
+        {
+            return IsAttackable;
+        }
+
+        public int GetStrategicValue()
+        {
+            return StrategicValue;
         }
 
         private IEnumerator RemoveMonsterFromList(int monsterHashcode)
@@ -60,5 +74,6 @@ namespace Resources.Scripts
         protected abstract void ChildStart();
         protected abstract void ChildUpdate();
         protected abstract int InitializeDurability();
+        protected abstract int InitializeStrategicValue();
     }
 }

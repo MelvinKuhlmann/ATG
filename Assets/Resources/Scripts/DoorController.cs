@@ -14,6 +14,9 @@ namespace Resources.Scripts
         public Animator animator;
         public Light2D indicatorLight;
         public bool permanentPower;
+        
+        public GameObject fullWall;
+        public GameObject brokenWall;
 
         private void OnTriggerEnter2D(Collider2D other)
         {
@@ -61,14 +64,14 @@ namespace Resources.Scripts
             switch (_doorState)
             {
                 case DoorState.Closed:
-                    animator.SetBool("open", true);
-                    animator.SetBool("close", false);
+                    AnimatorUtil.ChangeAnimationTo(animator, "close");
                     _doorState = DoorState.Open;
+                    IsAttackable = true;
                     break;
                 case DoorState.Open:
-                    animator.SetBool("open", false);
-                    animator.SetBool("close", true);
+                    AnimatorUtil.ChangeAnimationTo(animator, "open");
                     _doorState = DoorState.Closed;
+                    IsAttackable = false;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -95,11 +98,22 @@ namespace Resources.Scripts
             {
                 ToggleDoor();
             }
+            
+            if (Durability <= 50)
+            {
+                fullWall.SetActive(false);
+                brokenWall.SetActive(true);
+            }
         }
 
         protected override int InitializeDurability()
         {
             return 100;
+        }
+
+        protected override int InitializeStrategicValue()
+        {
+            return 5;
         }
     }
 

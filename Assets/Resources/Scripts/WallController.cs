@@ -4,13 +4,30 @@ namespace Resources.Scripts
 {
     public class WallController : Obstacle
     {
-        protected override void ChildStart() { }
+        public GameObject fullWall;
+        public GameObject brokenWall;
 
-        protected override void ChildUpdate() { }
+        protected override void ChildStart()
+        {
+        }
+
+        protected override void ChildUpdate()
+        {
+            if (Durability <= 50)
+            {
+                fullWall.SetActive(false);
+                brokenWall.SetActive(true);
+            }
+        }
 
         protected override int InitializeDurability()
         {
             return 100;
+        }
+
+        protected override int InitializeStrategicValue()
+        {
+            return 2;
         }
     }
 }
