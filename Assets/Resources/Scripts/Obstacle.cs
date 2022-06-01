@@ -6,7 +6,7 @@ namespace Resources.Scripts
 {
     public abstract class Obstacle : MonoBehaviour
     {
-        private Dictionary<int, bool> _monstersAttackingThisObject = new();
+        private readonly HashSet<int> _monstersAttackingThisObject = new();
         private int _durability;
         private Vector3 _localScale;
 
@@ -35,12 +35,12 @@ namespace Resources.Scripts
 
         private void OnCollisionStay2D(Collision2D other)
         {
-            if (other.gameObject.CompareTag("Monster") && !_monstersAttackingThisObject.ContainsKey(other.GetHashCode()))
+            var monsterHashcode = other.gameObject.GetHashCode();
+            if (other.gameObject.CompareTag("Monster") && !_monstersAttackingThisObject.Contains(monsterHashcode))
             {
+                _monstersAttackingThisObject.Add(monsterHashcode);
+
                 TakeDamage();
-                
-                var monsterHashcode = other.GetHashCode();
-                _monstersAttackingThisObject.Add(monsterHashcode, true);
                 
                 StartCoroutine(RemoveMonsterFromList(monsterHashcode));
             }
@@ -48,7 +48,6 @@ namespace Resources.Scripts
 
         private void TakeDamage()
         {
-            Debug.Log($"{gameObject.name} is taking damage");
             _durability -= 10;
         }
 
