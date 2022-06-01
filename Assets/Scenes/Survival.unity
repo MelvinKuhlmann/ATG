@@ -59227,18 +59227,6 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1088948992}
-    - target: {fileID: 4251314186994184428, guid: 02f0c43baa1737b43acf865801923855, type: 3}
-      propertyPath: m_InstanceId
-      value: -1390
-      objectReference: {fileID: 0}
-    - target: {fileID: 4587026314543605879, guid: 02f0c43baa1737b43acf865801923855, type: 3}
-      propertyPath: noAmmoClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 63bd8315c139dd34db35de3c252ec4ec, type: 3}
-    - target: {fileID: 4587026314543605879, guid: 02f0c43baa1737b43acf865801923855, type: 3}
-      propertyPath: gunShotClip
-      value: 
-      objectReference: {fileID: 8300000, guid: a2342fe398b850f4aa2bf4a9d626dcf6, type: 3}
     - target: {fileID: 4587026314543605879, guid: 02f0c43baa1737b43acf865801923855, type: 3}
       propertyPath: updateAmmo.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -59247,10 +59235,6 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 2081164429}
-    - target: {fileID: 5519464828135732585, guid: 02f0c43baa1737b43acf865801923855, type: 3}
-      propertyPath: m_InstanceId
-      value: -1374
-      objectReference: {fileID: 0}
     - target: {fileID: 8847726147358054090, guid: 02f0c43baa1737b43acf865801923855, type: 3}
       propertyPath: m_RootOrder
       value: 6
