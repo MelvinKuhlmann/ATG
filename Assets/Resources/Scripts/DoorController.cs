@@ -64,12 +64,12 @@ namespace Resources.Scripts
             switch (_doorState)
             {
                 case DoorState.Closed:
-                    AnimatorUtil.ChangeAnimationTo(animator, "close");
+                    AnimatorUtil.ChangeAnimationTo(animator, "open");
                     _doorState = DoorState.Open;
                     IsAttackable = true;
                     break;
                 case DoorState.Open:
-                    AnimatorUtil.ChangeAnimationTo(animator, "open");
+                    AnimatorUtil.ChangeAnimationTo(animator, "close");
                     _doorState = DoorState.Closed;
                     IsAttackable = false;
                     break;

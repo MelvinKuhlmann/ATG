@@ -14423,6 +14423,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 355867248947424011, guid: a4f9093f725993e438f53a6f292c4a6d, type: 3}
+      propertyPath: permanentPower
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 355867248947424014, guid: a4f9093f725993e438f53a6f292c4a6d, type: 3}
       propertyPath: m_RootOrder
       value: 26
@@ -58199,6 +58203,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lamp
       objectReference: {fileID: 0}
+    - target: {fileID: 877583042142501454, guid: e028667b99f743b49b192cc07ea191c6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5283559582488764229, guid: e028667b99f743b49b192cc07ea191c6, type: 3}
       propertyPath: m_ApplyToSortingLayers.Array.size
       value: 6
@@ -58581,7 +58589,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 0
 --- !u!4 &1848458457
 Transform:
   m_ObjectHideFlags: 0
@@ -58976,6 +58984,10 @@ PrefabInstance:
     - target: {fileID: 877583042142501454, guid: e028667b99f743b49b192cc07ea191c6, type: 3}
       propertyPath: m_Name
       value: Lamp (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 877583042142501454, guid: e028667b99f743b49b192cc07ea191c6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8041828684294809762, guid: e028667b99f743b49b192cc07ea191c6, type: 3}
       propertyPath: m_RootOrder
