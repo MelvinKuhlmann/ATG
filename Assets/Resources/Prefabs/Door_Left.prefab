@@ -182,7 +182,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1935435709
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 1
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -245,6 +245,7 @@ GameObject:
   - component: {fileID: 3813585201023221381}
   - component: {fileID: 8009309543288662208}
   - component: {fileID: 6643157592916503065}
+  - component: {fileID: 25369704916856567}
   m_Layer: 0
   m_Name: Door
   m_TagString: Door
@@ -306,7 +307,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1935435709
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 5f539a578f8b0864f9e53a76c9ff17f1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -355,7 +356,6 @@ MonoBehaviour:
   animator: {fileID: 132876311623510048}
   indicatorLight: {fileID: 93185137}
   permanentPower: 0
-  healthbar: {fileID: 2451544362716516462}
 --- !u!58 &3813585201023221381
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -424,7 +424,20 @@ MonoBehaviour:
   - {x: 2, y: -0.1, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 72318
+  m_InstanceId: 69276
+--- !u!114 &25369704916856567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 132876311623510062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caf3d043d6f93214ea6c0418524a57a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  strategicValue: 5
 --- !u!1 &2720181208704436430
 GameObject:
   m_ObjectHideFlags: 0

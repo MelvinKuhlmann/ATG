@@ -345,6 +345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3cab61c2edcedf49be10312053fffe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _colliders: []
   animator: {fileID: 1373671346116341206}
 --- !u!60 &3137785961812914664
 PolygonCollider2D:
@@ -431,7 +432,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0.09135002, y: -0.033015072}
   serializedVersion: 2
-  m_Radius: 3
+  m_Radius: 2
 --- !u!95 &1373671346116341206
 Animator:
   serializedVersion: 4
@@ -488,7 +489,7 @@ MonoBehaviour:
   - {x: -0.0011507954, y: -0.6856072, z: 0}
   m_ShapePathHash: 673239015
   m_Mesh: {fileID: 0}
-  m_InstanceId: 59394
+  m_InstanceId: 73686
 --- !u!1 &6784282646122392200
 GameObject:
   m_ObjectHideFlags: 0

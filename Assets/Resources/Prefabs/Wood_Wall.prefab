@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2985805297331565463}
   - component: {fileID: 2985805297331565464}
   - component: {fileID: 2395332717890753993}
+  - component: {fileID: 8045015608822767980}
   m_Layer: 0
   m_Name: Wood_Wall
   m_TagString: Wall
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1935435709
-  m_SortingLayer: 5
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b8db285a01df3e24e8c40d783970e92d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -114,7 +115,7 @@ MonoBehaviour:
   - {x: 1, y: -0.1, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 70746
+  m_InstanceId: 69522
 --- !u!61 &2985805297331565464
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -153,7 +154,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcb3e05a8ee69284bb150e73cb52a389, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthbar: {fileID: 541094812898546449}
+--- !u!114 &8045015608822767980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2985805297331565465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: caf3d043d6f93214ea6c0418524a57a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  strategicValue: 2
 --- !u!1 &9218126103947456307
 GameObject:
   m_ObjectHideFlags: 0

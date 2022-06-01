@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using static AnimatorUtil;
 
@@ -10,6 +12,7 @@ namespace Resources.Scripts
         private Transform _target;
         private const float Speed = 2F;
         private ZombieState _zombieState;
+        public List<Collider2D> _colliders = new();
         
         public Animator animator;
 
@@ -29,8 +32,6 @@ namespace Resources.Scripts
 
         private void MoveToTarget()
         {
-            if (_target == null) _target = _player.transform;
-            
             var ownPosition = transform.position;
             var targetPosition = _target.transform.position;
 
@@ -49,23 +50,26 @@ namespace Resources.Scripts
 
         private void OnTriggerEnter2D(Collider2D col)
         {
-            if (_zombieState == ZombieState.Attacking) return;
             switch (col.tag)
             {
                 case "Player":
                 case "Door":
                 case "Wall":
-                    _target = col.transform;
-                    _zombieState = ZombieState.Attacking;
+                    if (!_colliders.Contains(col))
+                    {
+                        _colliders.Add(col);
+                    }
                     break;
             }
+            _zombieState = ZombieState.Attacking;
         }
-
-        private void OnTriggerExit2D(Collider2D other)
+        
+        private void OnTriggerExit2D(Collider2D col)
         {
-            if (_zombieState == ZombieState.Dying) return;
-
-            _zombieState = ZombieState.Running;
+            if (_colliders.Contains(col))
+            {
+                _colliders.Remove(col);
+            }
         }
 
         private void OnCollisionEnter2D(Collision2D col)
@@ -85,15 +89,18 @@ namespace Resources.Scripts
                     MoveToTarget();
                     break;
                 case ZombieState.Attacking:
-                    if (_target == null)
-                    {
-                        ChasePlayer();
-                    }
-                    else
-                    {
-                        ChangeAnimationTo(animator, "isAttacking");
-                        MoveToTarget();   
-                    }
+                    var targetGameObject = _colliders.Count == 0
+                        ? _player
+                        : _colliders.Aggregate((i, j) =>
+                            i.GetComponent<StrategicValue>().GetValue() >= j.GetComponent<StrategicValue>().GetValue()
+                                ? i
+                                : j).gameObject;
+                    
+                    Debug.Log($"{gameObject.name} is targeting highest value object: {targetGameObject}");
+                    _target = targetGameObject.transform;
+                    
+                    ChangeAnimationTo(animator, "isAttacking");
+                    MoveToTarget();   
                     break;
                 case ZombieState.Dying:
                     ChangeAnimationTo(animator,"isDying");
@@ -105,6 +112,7 @@ namespace Resources.Scripts
 
         private void ChasePlayer()
         {
+            Debug.Log($"{gameObject.name} is Chasing player");
             _target = _player.transform;
             _zombieState = ZombieState.Running;
         }

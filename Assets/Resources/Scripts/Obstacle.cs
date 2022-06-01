@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -49,7 +48,7 @@ namespace Resources.Scripts
 
         private void TakeDamage()
         {
-            Debug.Log($"{gameObject.name} took damage");
+            Debug.Log($"{gameObject.name} is taking damage");
             _durability -= 10;
         }
 

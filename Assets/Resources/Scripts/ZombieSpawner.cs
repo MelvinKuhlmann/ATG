@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using Random = UnityEngine.Random;
@@ -35,7 +34,8 @@ namespace Resources.Scripts
                         Random.Range(transform.position.x - 5, transform.position.x + 5),
                         Random.Range(transform.position.y - 5, transform.position.y + 5));
                     
-                    Instantiate(zombie, exactSpawnLocation, transform.rotation);
+                    var instantiatedZombie = Instantiate(zombie, exactSpawnLocation, transform.rotation);
+                    instantiatedZombie.name = $"Zombie{instantiatedZombie.GetHashCode()}";
                 }
                 
                 Debug.Log($"{amount} zombies spawned.");
