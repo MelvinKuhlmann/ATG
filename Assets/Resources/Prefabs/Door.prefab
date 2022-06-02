@@ -309,7 +309,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 307beb0eb49718e41af961b3e59144d0, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -537,7 +537,7 @@ MonoBehaviour:
   - {x: 1, y: -0.099998474, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: 61648
+  m_InstanceId: 101900
 --- !u!1001 &355867249736628622
 PrefabInstance:
   m_ObjectHideFlags: 0
