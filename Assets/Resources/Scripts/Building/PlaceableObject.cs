@@ -27,6 +27,9 @@ public class PlaceableObject : MonoBehaviour
          vertices[i] = BuildingSystem.current.gridLayout.WorldToCell(worldPos);
       }
       
+      Debug.Log(Math.Abs((vertices[0] - vertices[1]).x));
+      Debug.Log(Math.Abs((vertices[0] - vertices[3]).y));
+      
       Size = new Vector3Int(
          Math.Abs((vertices[0] - vertices[1]).x), 
          Math.Abs((vertices[0] - vertices[3]).y), 

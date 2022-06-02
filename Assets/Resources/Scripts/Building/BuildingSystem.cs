@@ -47,6 +47,7 @@ public class BuildingSystem : MonoBehaviour
             if (CanBePlaced(objectToPlace))
             {
                 objectToPlace.Place();
+                Debug.Log(objectToPlace.Size);
                 Vector3Int start = gridLayout.WorldToCell(objectToPlace.GetStartPosition());
                 TakeArea(start, objectToPlace.Size);
             }
@@ -81,6 +82,7 @@ public class BuildingSystem : MonoBehaviour
 
     private static TileBase[] GetTilesBlock(BoundsInt area, Tilemap tilemap)
     {
+        Debug.Log(area);
         TileBase[] array = new TileBase[area.size.x * area.size.y * area.size.z];
         int counter = 0;
 
@@ -91,6 +93,7 @@ public class BuildingSystem : MonoBehaviour
             counter++;
         }
 
+        Debug.Log(array);
         return array;
     }
     
@@ -108,6 +111,7 @@ public class BuildingSystem : MonoBehaviour
 
     private bool CanBePlaced(PlaceableObject placeableObject)
     {
+        bool canPlaced = true;
         BoundsInt area = new BoundsInt();
         area.position = gridLayout.WorldToCell(objectToPlace.GetStartPosition());
         area.size = placeableObject.Size;
@@ -116,18 +120,25 @@ public class BuildingSystem : MonoBehaviour
 
         foreach (var b in baseArray)
         {
+            Debug.Log(b);
+            Debug.Log(b == whiteTile);
             if (b == whiteTile)
             {
-                return false;
+                //return false;
+                canPlaced = false;
             }
         }
 
-        return true;
+        Debug.Log(canPlaced);
+        //return true;
+        return canPlaced;
     }
 
     public void TakeArea(Vector3Int start, Vector3Int size)
     {
-        MainTilemap.BoxFill(start, whiteTile, start.x, start.y, start.x + size.x, start.y + size.y);
+        MainTilemap.BoxFill(start, whiteTile, 
+            start.x, start.y, 
+            start.x + size.x, start.y + size.y);
     }
     
     #endregion
