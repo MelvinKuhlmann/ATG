@@ -79,7 +79,7 @@ public class SceneController : MonoBehaviour
                 PlayerCharacter.PlayerInstance.damageable.SetHealth(PlayerCharacter.PlayerInstance.damageable.startingHealth);
             }*/
 
-            Instance.StartCoroutine(Instance.Transition(Instance.m_CurrentZoneScene.name, true, Instance.m_ZoneRestartDestinationTag, TransitionPoint.TransitionType.DifferentZone));
+            Instance.StartCoroutine(Instance.Transition(Instance.m_CurrentZoneScene.name, true, Instance.m_ZoneRestartDestinationTag, TransitionType.DifferentZone));
         }
 
         public static void RestartZoneWithDelay(float delay, bool resetHealth = true)
@@ -102,7 +102,7 @@ public class SceneController : MonoBehaviour
             return Instance.GetDestination(destinationTag);
         }
 
-        protected IEnumerator Transition(string newSceneName, bool resetInputValues, SceneTransitionDestination.DestinationTag destinationTag, TransitionPoint.TransitionType transitionType = TransitionPoint.TransitionType.DifferentZone)
+        protected IEnumerator Transition(string newSceneName, bool resetInputValues, SceneTransitionDestination.DestinationTag destinationTag, TransitionType transitionType = TransitionType.DifferentZone)
         {
             m_Transitioning = true;
             Scene scene = SceneManager.GetActiveScene();
@@ -153,7 +153,7 @@ public class SceneController : MonoBehaviour
             enteringTransform.rotation = entranceLocation.rotation;
         }
 
-        protected void SetupNewScene(TransitionPoint.TransitionType transitionType, SceneTransitionDestination entrance)
+        protected void SetupNewScene(TransitionType transitionType, SceneTransitionDestination entrance)
         {
             if (entrance == null)
             {
@@ -161,7 +161,7 @@ public class SceneController : MonoBehaviour
                 return;
             }
 
-            if (transitionType == TransitionPoint.TransitionType.DifferentZone)
+            if (transitionType == TransitionType.DifferentZone)
                 SetZoneStart(entrance);
         }
 

@@ -1,88 +1,91 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
 
 public class BuildingSystem : MonoBehaviour
 {
     public static BuildingSystem current;
     private static Camera mainCamera;
-
-    public GridLayout gridLayout;
-    private Grid grid;
-    [SerializeField] private Tilemap MainTilemap;
-    [SerializeField] private TileBase whiteTile;
-
-    public GameObject prefab1;
-    public GameObject prefab2;
-
-    private PlaceableObject objectToPlace;
     
-    #region Unity methods
+    public GridLayout gridLayout;
+    public Tilemap MainTilemap;
+    public Tilemap TempTilemap;
 
+    private static Dictionary<TileType, TileBase> tileBases = new Dictionary<TileType, TileBase>();
+
+    private Building temp;
+    private Vector3 prevPos;
+    private BoundsInt prevArea;
+    
+    public TileBase whiteTile;
+    public TileBase redTile;
+    public TileBase greenTile;
+    
     private void Awake()
     {
         current = this;
-        grid = gridLayout.gameObject.GetComponent<Grid>();
         mainCamera = Camera.main;
     }
 
+    private void Start()
+    {
+        tileBases.Add(TileType.Empty, null);
+        tileBases.Add(TileType.White, whiteTile);
+        tileBases.Add(TileType.Green, greenTile);
+        tileBases.Add(TileType.Red, redTile);
+    }
+    
     private void Update()
     {
-        //TODO temp hack to start building blocks
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            InitializeWithObject(prefab1);
-        }
-        else if (Input.GetKeyDown(KeyCode.X))
-        {
-            InitializeWithObject(prefab2);
-        }
-
-        if (!objectToPlace)
+        if (!temp)
         {
             return;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetMouseButtonDown(0))
         {
-            if (CanBePlaced(objectToPlace))
+            if (EventSystem.current.IsPointerOverGameObject(0))
             {
-                objectToPlace.Place();
-                Debug.Log(objectToPlace.Size);
-                Vector3Int start = gridLayout.WorldToCell(objectToPlace.GetStartPosition());
-                TakeArea(start, objectToPlace.Size);
+                return;
             }
-            else
+
+            if (!temp.Placed)
             {
-                Destroy(objectToPlace.gameObject);
+                Vector2 touchPos = GetWorldPositionOnPlane(Input.mousePosition, 0f);
+                Vector3Int cellPos = gridLayout.LocalToCell(touchPos);
+
+                if (prevPos != cellPos)
+                {
+                    temp.transform.localPosition =
+                           gridLayout.CellToLocalInterpolated(cellPos + new Vector3(.5f, .5f, 0f));
+                    prevPos = cellPos;
+                    FollowBuilding();
+                }
             }
-        }
-        else if (Input.GetKeyDown(KeyCode.Escape))
+        } else if (Input.GetKeyDown(KeyCode.Space))
         {
-            Destroy(objectToPlace.gameObject);
+            if (temp.CanBePlaced())
+            {
+                temp.Place();
+            }
+        }else if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            ClearArea();
+            Destroy(temp.gameObject);
         }
     }
-
-    #endregion
     
-    #region Utils
-
-    
-    public static Vector3 GetMouseWorldPosition()
-    {
-        // Multiply with -1 otherwise the values of x and y are inverted
-        return mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.z)) * -1;
-    }
-    
-    public Vector3 SnapCoordinateToGrid(Vector3 position)
-    {
-        Vector3Int cellPos = gridLayout.WorldToCell(position);
-        position = grid.GetCellCenterWorld(cellPos);
-        return new Vector3(position.x, position.y, 0f);
+    public Vector3 GetWorldPositionOnPlane(Vector3 screenPosition, float z) {
+        Ray ray = mainCamera.ScreenPointToRay(screenPosition);
+        Plane xy = new Plane(Vector3.forward, new Vector3(0, 0, z));
+        float distance;
+        xy.Raycast(ray, out distance);
+        return ray.GetPoint(distance);
     }
 
     private static TileBase[] GetTilesBlock(BoundsInt area, Tilemap tilemap)
     {
-        Debug.Log(area);
         TileBase[] array = new TileBase[area.size.x * area.size.y * area.size.z];
         int counter = 0;
 
@@ -92,54 +95,101 @@ public class BuildingSystem : MonoBehaviour
             array[counter] = tilemap.GetTile(pos);
             counter++;
         }
-
-        Debug.Log(array);
         return array;
+    }
+    
+    private static void SetTilesBlock(BoundsInt area, TileType type, Tilemap tilemap)
+    {
+        int size = area.size.x * area.size.y * area.size.z;
+        TileBase[] tileArray = new TileBase[size];
+
+        FillTiles(tileArray, type);
+        tilemap.SetTilesBlock(area, tileArray);
+    }
+
+    private static void FillTiles(TileBase[] arr, TileType type)
+    {
+        for (int i = 0; i < arr.Length; i++)
+        {
+            arr[i] = tileBases[type];
+        }
+    }
+    
+    #region Building placement
+    public void InitializeWithObject(GameObject prefab)
+    {
+        Vector3 viewPosition = mainCamera.transform.position;
+        temp = Instantiate(prefab, Vector3.zero, Quaternion.identity).GetComponent<Building>();
+        Vector3Int cellPos = gridLayout.LocalToCell(new Vector3(viewPosition.x, viewPosition.y, 0f));
+        temp.transform.localPosition =
+            gridLayout.CellToLocalInterpolated(cellPos + new Vector3(.5f, .5f, 0f));
+        FollowBuilding();
+    }
+
+    private void ClearArea()
+    {
+        TileBase[] toClear = new TileBase[prevArea.size.x * prevArea.size.y * prevArea.size.z];
+        FillTiles(toClear, TileType.Empty);
+        TempTilemap.SetTilesBlock(prevArea, toClear);
+    }
+
+    private void FollowBuilding()
+    {
+        ClearArea();
+        
+        temp.area.position = gridLayout.WorldToCell(temp.gameObject.transform.position);
+        BoundsInt buildingArea = temp.area;
+        
+        TileBase[] baseArray = GetTilesBlock(buildingArea, MainTilemap);
+
+        int size = baseArray.Length;
+        TileBase[] tileArray = new TileBase[size];
+
+        for (int i = 0; i < baseArray.Length; i++)
+        {
+            if (baseArray[i] == tileBases[TileType.White])
+            {
+                tileArray[i] = tileBases[TileType.Green];
+            }
+            else
+            {
+                FillTiles(tileArray, TileType.Red);
+                break;
+            }
+        }
+        
+        TempTilemap.SetTilesBlock(buildingArea, tileArray);
+        prevArea = buildingArea;
     }
     
     #endregion
     
-    #region Building Placement
-
-    public void InitializeWithObject(GameObject prefab)
-    {
-        Vector3 position = SnapCoordinateToGrid(Vector3.zero);
-        GameObject obj = Instantiate(prefab, position, Quaternion.identity);
-        objectToPlace = obj.GetComponent<PlaceableObject>();
-        obj.AddComponent<ObjectDrag>();
-    }
-
-    private bool CanBePlaced(PlaceableObject placeableObject)
-    {
-        bool canPlaced = true;
-        BoundsInt area = new BoundsInt();
-        area.position = gridLayout.WorldToCell(objectToPlace.GetStartPosition());
-        area.size = placeableObject.Size;
-
+    public bool CanTakeArea(BoundsInt area)
+    { 
         TileBase[] baseArray = GetTilesBlock(area, MainTilemap);
 
         foreach (var b in baseArray)
         {
-            Debug.Log(b);
-            Debug.Log(b == whiteTile);
-            if (b == whiteTile)
+            if (b != tileBases[TileType.White])
             {
-                //return false;
-                canPlaced = false;
+                Debug.Log("cant place here");
+                return false;
             }
         }
-
-        Debug.Log(canPlaced);
-        //return true;
-        return canPlaced;
+        return true;
     }
 
-    public void TakeArea(Vector3Int start, Vector3Int size)
+    public void TakeArea(BoundsInt area)
     {
-        MainTilemap.BoxFill(start, whiteTile, 
-            start.x, start.y, 
-            start.x + size.x, start.y + size.y);
+        SetTilesBlock(area, TileType.Empty, TempTilemap);
+        SetTilesBlock(area, TileType.Green, MainTilemap);
     }
-    
-    #endregion
+}
+
+public enum TileType
+{
+    Empty,
+    White,
+    Green,
+    Red
 }
